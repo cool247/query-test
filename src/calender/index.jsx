@@ -18,7 +18,7 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const weeks = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
-const shifts = ["Morning", "Evening", "Night"];
+const shifts = [{ name: "Morning", color: 'green' }, { name: "Evening", color: 'blue' }, { name: "Night", color: 'purple' }];
 
 function getBgColor(date, selectedDates) {
   const dateObj = selectedDates.find((de) => de.date === date.toDateString());
@@ -119,14 +119,18 @@ const Calender = () => {
       setSelectedDates((ps) => [...ps, { date, shift: selectedShift }]);
     }
   };
-
   return (
     <Box m={4}>
       <FormControl>
         <FormLabel id="radio-buttons-group">Select Shift</FormLabel>
         <RadioGroup row aria-labelledby="radio-buttons-group" value={selectedShift} onChange={handleChange}>
           {shifts.map((s) => (
-            <FormControlLabel key={s} value={s} control={<Radio />} label={s} />
+            <FormControlLabel key={s.name} value={s.name} control={<Radio />} label={
+              <div style={{ display: 'flex', flexDirection: 'row',gap:"8px", alignItems: 'center' }}>
+                <div >{s.name}</div>
+                <div style={{ backgroundColor: s.color, height: '20px', width: '20px' }}>
+                </div>
+              </div>} />
           ))}
         </RadioGroup>
       </FormControl>
